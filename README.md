@@ -86,3 +86,4 @@ curl http://localhost:8080/destinos/buscar?local=França
 
 ## Observações
 - Dados mantidos em memória (sem persistência).
+- A inicialização do banco de dados utiliza a propriedade `spring.jpa.defer-datasource-initialization=true` no arquivo `application.properties`.
