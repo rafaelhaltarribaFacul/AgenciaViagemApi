@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
 
 @Configuration
 public class SecurityConfig {
@@ -45,7 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/destinos/**").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/destinos/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated())
-                .httpBasic();
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }
