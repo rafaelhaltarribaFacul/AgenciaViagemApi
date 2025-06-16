@@ -21,7 +21,8 @@ API REST para gerenciar destinos de viagem e reservas.
    ./gradlew clean build
    ./gradlew bootRun
    ```
-4. Acesse a API em `http://localhost:8080`.
+4. Certifique-se de que o PostgreSQL esteja rodando na porta padrao (5432) e que o banco `agenciaviagem` esteja criado. O usuario e senha configurados sao `postgres`.
+5. Acesse a API em `http://localhost:8080`.
 
 ## Endpoints
 
@@ -72,17 +73,46 @@ API REST para gerenciar destinos de viagem e reservas.
 
 ```bash
 curl -X POST http://localhost:8080/destinos \
+  -u admin:password \
   -H "Content-Type: application/json" \
-  -d '{"nome":"Baku","local":"Azerbaijão","descricao":"Inimigos da Armênia"}'
+  -d '{"nome":"Praia","local":"Brasil","descricao":"Destino de teste"}'
 ```
 
 ```bash
-curl http://localhost:8080/destinos
+curl -u admin:password http://localhost:8080/destinos
 ```
 
 ```bash
-curl http://localhost:8080/destinos/buscar?local=França
+curl -u admin:password "http://localhost:8080/destinos/buscar?nome=Praia&local=Brasil"
+```
+
+```bash
+curl -u admin:password http://localhost:8080/destinos/1
+```
+
+```bash
+curl -X POST -u admin:password http://localhost:8080/destinos/1/avaliacao/8
+```
+
+```bash
+curl -X DELETE -u admin:password http://localhost:8080/destinos/1
+```
+
+```bash
+curl -X POST http://localhost:8080/destinos/1/reservas \
+  -u admin:password \
+  -H "Content-Type: application/json" \
+  -d '{"nomeCliente":"Fulano","quantidadePessoas":2,"dataViagem":"2024-07-01"}'
+```
+
+```bash
+curl -u admin:password http://localhost:8080/destinos/1/reservas
+```
+
+```bash
+curl -X DELETE -u admin:password http://localhost:8080/destinos/1/reservas/10
 ```
 
 ## Observações
 - Os dados agora são armazenados em um banco PostgreSQL.
+- O script `data.sql` cria o usuario `admin` com senha `password` para acesso via Basic Auth.
