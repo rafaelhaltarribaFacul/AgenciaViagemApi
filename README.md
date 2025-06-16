@@ -18,8 +18,8 @@ API REST para gerenciar destinos de viagem e reservas.
 2. Abra o projeto na sua IDE.
 3. Execute o comando:
    ```
-   mvn clean install
-   mvn spring-boot:run
+   ./gradlew clean build
+   ./gradlew bootRun
    ```
 4. Acesse a API em `http://localhost:8080`.
 
@@ -85,4 +85,4 @@ curl http://localhost:8080/destinos/buscar?local=França
 ```
 
 ## Observações
-- Dados mantidos em memória (sem persistência).
+- Os dados agora são armazenados em um banco PostgreSQL.
